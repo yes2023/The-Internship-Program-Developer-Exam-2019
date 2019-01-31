@@ -62,7 +62,7 @@ def FindCorrectAlp(game,player,alp) :   # Use to check answer from user
     length = len(game.answer)
     checkGuess = 0                      # To check if there are correct guess
     for x in range(0,length) :          
-        if(game.guess[x] == "_" and game.answer[x].casefold() == alp.casefold()) :      # If there are avarible to guess and true
+        if(game.guess[x] == "_" and game.answer[x].casefold() == alp.casefold()) :      # If player guess correct
             game.guess = AlpReplace(game.guess,game.answer[x],x)
             player.score = player.score + 10
             game.remain = game.remain - 1
@@ -91,14 +91,14 @@ def InGame(selectCategory,player) :     # Use for play the game
                 print(x + " ",end="")
             print("\n")
         alp = input('Enter Guess Alphabet: ')   
-        while alp in wrongGuess or alp in game.guess or not alp.isalpha() or len(alp) != 1:
+        while alp.casefold() in wrongGuess or alp.casefold() in game.guess.casefold() or not alp.isalpha() or len(alp) != 1:
             if len(alp)!=1 or not alp.isalpha():        #Wrong format
                 alp = input('Enter Only alphabet: ')
             else :                                      #if there are correct format but already guess
                 alp = input('Already guess this alphabet, guess the other: ')
         alp = alp.casefold()                            #ignore case sensitive
         if not FindCorrectAlp(game,player,alp) :        #if player guess wrong
-            wrongGuess.append(alp)
+            wrongGuess.append(alp.casefold())
         if(game.remain == 0) :                          #if player can guess all alphabet
             win = 1
             print("You Win!!")

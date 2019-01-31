@@ -1,18 +1,22 @@
 import sys
 import os
-import json
-from xmltodict
-#from xmljson import parker as pk
-#from json import dumps
+from json import dumps
+from xmljson import yahoo  as yahoo
+import xml.etree.ElementTree as ET
 
-print(sys.argv)
-if(len(sys.argv)!=2) :
+if(len(sys.argv)!=2) :              #if there are more 1 argument
     print("Wrong Path")
     exit()
-if(os.path.isfile(sys.argv[1])) :
+if(os.path.isfile(sys.argv[1])) :   #if file exits
     file = open(sys.argv[1],"r")
 else :
     print("File isn't exist")
     exit()
-x = xmltodict.parse(file)
-#print(dumps(pk.data(file)))
+xmlFile = ET.parse(file).getroot()
+coverted = dumps(yahoo.data(xmlFile)["current"], indent=4)  #Convert to json with current root and indent = 4
+newFilename = sys.argv[1].split(".")[0]                     #Get xml file name
+convertedFile = open(newFilename + ".json", "w")
+convertedFile.write(coverted)                               #write json into file
+convertedFile.close()
+file.close()
+print(newFilename + ".json")

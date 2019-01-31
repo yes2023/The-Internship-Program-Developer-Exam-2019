@@ -21,9 +21,9 @@ class Game :
             if(answer[x].isalpha()) :
                 temp.append("_")
             else :
-                count = count + 1 # Count ammout of alphabet that user need to answer
+                count = count + 1       # Count ammout of alphabet that user need to answer
                 temp.append(answer[x])
-        self.guess = ''.join(temp) # Convert list to string
+        self.guess = ''.join(temp)      # Convert list to string
         self.remain = len(answer) - count
 
 
@@ -58,18 +58,18 @@ def ListQuiz(fileList) :            # Use to get quiz list and quiz from file
         file.close()
     
 
-def FindCorrectAlp(game,player,alp) : # Use to check answer from user
+def FindCorrectAlp(game,player,alp) :   # Use to check answer from user
     length = len(game.answer)
-    checkGuess = 0
-    for x in range(0,length) :
-        if(game.guess[x] == "_" and game.answer[x].casefold() == alp.casefold()) :
+    checkGuess = 0                      # To check if there are correct guess
+    for x in range(0,length) :          
+        if(game.guess[x] == "_" and game.answer[x].casefold() == alp.casefold()) :      # If there are avarible to guess and true
             game.guess = AlpReplace(game.guess,game.answer[x],x)
             player.score = player.score + 10
             game.remain = game.remain - 1
             checkGuess = 1
     if(checkGuess == 1) :
         return True
-    else :
+    else :                              # If payer guess wrong
         player.health = player.health - 1
         return False
 

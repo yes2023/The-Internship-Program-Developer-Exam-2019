@@ -6,8 +6,16 @@
       "answer": "BNK48!!"
     },
     {
+      "hint": "Like BNK48 but origin at Akihabara",
+      "answer": "AKB48!!"
+    },
+    {
+      "hint": "K-pop Band",
+      "answer": "2PM"
+    },
+    {
       "hint": "Hotel California",
-      "answer": "The Eagles"
+      "answer": "The Eagles"  
     },
     {
       "hint": "Most of song start with word life",
@@ -20,6 +28,7 @@
     {
       "hint": "Name like drink",
       "answer": "Cocktail"
-    }
+    },
+
   ]
 }

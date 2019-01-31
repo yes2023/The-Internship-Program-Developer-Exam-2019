@@ -3,7 +3,7 @@ import os
 import json
 import random
 
-class Player :
+class Player : 
     def __init__(self, name):
         self.name = name
         self.health = 5
@@ -21,17 +21,17 @@ class Game :
             if(answer[x].isalpha()) :
                 temp.append("_")
             else :
-                count = count + 1
+                count = count + 1 # Count ammout of alphabet that user need to answer
                 temp.append(answer[x])
-        self.guess = ''.join(temp)
+        self.guess = ''.join(temp) # Convert list to string
         self.remain = len(answer) - count
 
 
-listedQuiz = []
-quizPath = "./Quiz/"
-allQuiz = []
+listedQuiz = []         # use to collect list of quiz
+quizPath = "./Quiz/"    # quiz dir
+allQuiz = []            # use to collect all quiz
 
-def LoadQuiz() :
+def LoadQuiz() :        # Use to load json quiz file and return list of file
     fileList = []
     dirs = os.listdir(quizPath)
     for file in dirs :
@@ -40,15 +40,14 @@ def LoadQuiz() :
             fileList.append(file)
     return fileList
 
-def AlpReplace(text,alp,index) :
+def AlpReplace(text,alp,index) :    # Use to replace text in game
     temp = text[:index] + alp + text[index + 1:]
     return temp
 
-def ListQuiz(fileList) :
+def ListQuiz(fileList) :            # Use to get quiz list and quiz from file
     if(len(fileList) == 0) :
         print("Need Quiz File\n")
         exit()
-        return 0
     else :
         for fileName in fileList :
             file = open(quizPath + fileName,"r")
@@ -57,9 +56,9 @@ def ListQuiz(fileList) :
             listedQuiz.append(Data['Category'])
             #print(Category["Category"])
         file.close()
-    return 1
+    
 
-def FindCorrectAlp(game,player,alp) :
+def FindCorrectAlp(game,player,alp) : # Use to check answer from user
     length = len(game.answer)
     checkGuess = 0
     for x in range(0,length) :
@@ -74,40 +73,36 @@ def FindCorrectAlp(game,player,alp) :
         player.health = player.health - 1
         return False
 
-def InGame(selectCategory,player) :
-    #print(len(allQuiz[selectCategory-1][0]))
-    #print(">>" + allQuiz[0][0]['hint'])
-    #print(len( allQuiz[selectCategory-1] ))
-    #input()
+def InGame(selectCategory,player) :     # Use for play the game
     randomQuiz = random.randint(0,len(allQuiz[selectCategory]) -1 )
     answer = allQuiz[selectCategory][randomQuiz]['answer']
     game = Game(answer)
     win = 0
     wrongGuess = []
-    while win == 0 and player.health > 0 :
+    while win == 0 and player.health > 0 :  #continue play while player not win and have remain guess
         os.system('cls')
         print("\nHint: " + allQuiz[selectCategory][randomQuiz]['hint'])
-        for x in range(0,len(game.guess)) :
+        for x in range(0,len(game.guess)) : #loop for print guess word
             print(game.guess[x] + " ",end="")
         print("\n" + player.name + " got score " + str(player.score) + ", remaining word guess " + str(player.health))
-        if(len(wrongGuess) > 0) :
+        if(len(wrongGuess) > 0) :           #if player have been guess wrong
             print("\nwrong guessed: ")
-            for x in wrongGuess :
+            for x in wrongGuess :           #print wrong alphabet
                 print(x + " ",end="")
             print("\n")
-        alp = input('Enter Guess Alphabet: ')
+        alp = input('Enter Guess Alphabet: ')   
         while alp in wrongGuess or alp in game.guess or not alp.isalpha() or len(alp) != 1:
-            if len(alp)!=1 or not alp.isalpha():
+            if len(alp)!=1 or not alp.isalpha():        #Wrong format
                 alp = input('Enter Only alphabet: ')
-            elif alp.isalpha() :
+            else :                                      #if there are correct format but already guess
                 alp = input('Already guess this alphabet, guess the other: ')
-        alp = alp.casefold()
-        if not FindCorrectAlp(game,player,alp) :
+        alp = alp.casefold()                            #ignore case sensitive
+        if not FindCorrectAlp(game,player,alp) :        #if player guess wrong
             wrongGuess.append(alp)
-        if(game.remain == 0) :
+        if(game.remain == 0) :                          #if player can guess all alphabet
             win = 1
             print("You Win!!")
-        if(game.remain == 0 or player.health == 0) :
+        if(game.remain == 0 or player.health == 0) :    #if game end
             print("Answer is \" ",end="")
             for x in range(0,len(game.guess)) :
                 print(game.answer[x],end="")
@@ -118,7 +113,7 @@ def InGame(selectCategory,player) :
         
     
 
-def StartGame() :
+def StartGame() : # Use to start the game(main)
     name = input('Enter Player Name: ')
     player = Player(name)
     status = 1
@@ -131,30 +126,30 @@ def StartGame() :
         for x in listedQuiz :
             print(str(count) + "." + x)
             count = count + 1
-        while True :
+        while True :                    #validate player select category
             try :
                 selectCategory = int(input('Select Category(-1 to Exit Game): '))
                 if(selectCategory > len(listedQuiz) or selectCategory == 0) :
                     print("Input Only 1 to " + str(len(listedQuiz)) + " Or -1 to Exit Game")
                     continue
-            except ValueError:
+            except ValueError:          #if player input character
                 print("Input number only")
                 continue
-            else :
+            else :                      #Correct format
                 break
-        if(selectCategory == -1) :
+        if(selectCategory == -1) :      #player want to exit
             status = 0
         else :
-            InGame(selectCategory - 1,player)
-            if player.health == 0 :
+            InGame(selectCategory - 1,player)           #ingame play
+            if player.health == 0 :                     #if player die
                 play = input('\nYou lose!! Want to play again?(Y/N): ')
-                play=play.casefold()
-                while(play != "y" and play != "n") :
+                play=play.casefold()                    #ignore case sensitive
+                while(play != "y" and play != "n") :    #while incorrect input
                     play = input('Enter only Y/N: ')
                 if(play == 'y') :
-                    player.reset()
+                    player.reset()                      #reset health
                 else :
-                    status = 0
+                    status = 0                          #exit game
 
 
 StartGame()

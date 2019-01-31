@@ -14,9 +14,17 @@ class Player :
 
 class Game :
     def __init__(self, answer):
+        temp = []
+        count = 0
         self.answer = answer
-        self.guess = "_" * len(answer)
-        self.remain = len(answer)
+        for x in range (0,len(answer)) :
+            if(answer[x].isalpha()) :
+                temp.append("_")
+            else :
+                count = count + 1
+                temp.append(answer[x])
+        self.guess = ''.join(temp)
+        self.remain = len(answer) - count
 
 
 listedQuiz = []
@@ -86,8 +94,11 @@ def InGame(selectCategory,player) :
         if(len(wrongGuess) > 0) :
             print("\n")
         alp = input('Enter Guess Alphabet: ')
-        while alp in wrongGuess or alp in game.guess :
-            alp = input('Already guess this alphabet, guess the other: ')
+        while alp in wrongGuess or alp in game.guess or not alp.isalpha():
+            if alp.isalpha() :
+                alp = input('Already guess this alphabet, guess the other: ')
+            else :
+                alp = input('Enter Only alphabet: ')
         if not FindCorrectAlp(game,player,alp) :
             wrongGuess.append(alp)
         if(game.remain == 0) :
@@ -103,8 +114,8 @@ def StartGame() :
     name = input('Enter Player Name: ')
     player = Player(name)
     status = 1
-    listedFile=LoadQuiz()
-    ListQuiz(listedFile)
+    listedFile=LoadQuiz()   #load .json quiz file
+    ListQuiz(listedFile)   
     while status == 1 :
         print("\n--Category--")
         for x in listedQuiz :

@@ -1,17 +1,25 @@
 {
-  "Category": "Famous People",
+  "Category": "Famous Band",
   "quiz": [
     {
-      "hint": "euei",
-      "answer": "naja"
+      "hint": "Fortune Cookies",
+      "answer": "BNK48!!"
     },
     {
-      "hint": "euei2",
-      "answer": "naja2"
+      "hint": "Hotel California",
+      "answer": "The Eagles"
     },
     {
-      "hint": "euei3",
-      "answer": "naja3"
+      "hint": "Most of song start with word life",
+      "answer": "Bodyslam"
+    },
+    {
+      "hint": "Zombie",
+      "answer": "The Cranberries"
+    },
+    {
+      "hint": "Name like drink",
+      "answer": "Cocktail"
     }
   ]
 }

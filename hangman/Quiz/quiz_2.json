@@ -1,17 +1,29 @@
 {
-  "Category": "Video Game",
+  "Category": "Food",
   "quiz": [
     {
-      "hint": "euei2",
-      "answer": "naja11"
+      "hint": "Stack of meat and bread",
+      "answer": "Burger"
     },
     {
-      "hint": "euei2",
-      "answer": "naja2"
+      "hint": "Papaya Pok Pok",
+      "answer": "Somtum"
     },
     {
-      "hint": "euei3",
-      "answer": "naja3"
+      "hint": "Black and bitter",
+      "answer": "Coffee"
+    },
+    {
+      "hint": "Fish that bigger than it's self",
+      "answer": "Fish and Chip"
+    },
+    {
+      "hint": "Important thing to make mocha",
+      "answer": "Cocoa"
+    },
+    {
+      "hint": "Sweet milk",
+      "answer": "Condensed milk"
     }
   ]
 }
